@@ -1,6 +1,6 @@
 [project]
 name = "nonebot-plugin-jmcomic"
-version = "0.1.2"
+version = "0.1.5"
 description = "下载禁漫本子并发送"
 authors = [
     {name = "zhulinyv",email = "zhulinyv2005@outlook.com"}
