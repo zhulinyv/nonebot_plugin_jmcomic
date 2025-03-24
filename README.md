@@ -59,7 +59,7 @@
 
 ## ⚙️ 配置
 
-请移步 `data/jm/option.yml` 文件并参考 [option_file_syntax](https://github.com/hect0x7/JMComic-Crawler-Python/blob/master/assets/docs/sources/option_file_syntax.md) 进行配置.
+请移步[插件配置目录](https://github.com/nonebot/plugin-localstore)下 `option.yml` 文件并参考 [option_file_syntax](https://github.com/hect0x7/JMComic-Crawler-Python/blob/master/assets/docs/sources/option_file_syntax.md) 进行配置.
 
 默认不需要更改.
 
