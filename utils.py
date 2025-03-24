@@ -1,6 +1,9 @@
 import os
 import shutil
 
+if not os.path.exists(path := "./data"):
+    os.mkdir("./data")
+
 if not os.path.exists(path := "./data/jm"):
     os.mkdir(path)
 

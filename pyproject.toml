@@ -1,14 +1,20 @@
 [project]
 name = "nonebot-plugin-jmcomic"
-version = "0.1.0"
+version = "0.1.1"
 description = "下载禁漫本子并发送"
 authors = [
     {name = "zhulinyv",email = "zhulinyv2005@outlook.com"}
 ]
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-]
+packages = [{include = "nonebot_plugin_jmcomic"}]
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+nonebot2 = "^2.2.1"
+jmcomic = "^2.5.32"
+nonebot-adapter-onebot = "^2.2.3"
 
 
 [build-system]

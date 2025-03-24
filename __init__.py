@@ -19,7 +19,7 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
     id = msg.extract_plain_text().strip()
     option = jmcomic.create_option_by_file("./data/jm/option.yml")
     await jm.send("正在下载中...", at_sender=True)
-    jmcomic.download_album(id, option)
+    jmcomic.download_album(id, option=option)
 
     await bot.call_api(
         "upload_group_file",
