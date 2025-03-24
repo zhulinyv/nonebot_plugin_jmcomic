@@ -1,0 +1,107 @@
+# 开启jmcomic的日志输出，默认为true
+# 对日志有需求的可进一步参考文档 → https://jmcomic.readthedocs.io/en/latest/tutorial/11_log_custom/
+log: true
+
+# 配置客户端相关
+client:
+  # impl: 客户端实现类，不配置默认会使用JmModuleConfig.DEFAULT_CLIENT_IMPL
+  # 可配置:
+  #  html - 表示网页端
+  #  api - 表示APP端
+  # APP端不限ip兼容性好，网页端限制ip地区但效率高
+  impl: html
+
+  # domain: 域名配置，默认是 []，表示运行时自动获取域名。
+  # 可配置特定域名，如下：
+  # 程序会先用第一个域名，如果第一个域名重试n次失败，则换下一个域名重试，以此类推。
+  domain:
+    - jm-comic.org
+    - jm-comic2.cc
+    - 18comic.vip
+    - 18comic.org
+
+  # retry_times: 请求失败重试次数，默认为5
+  retry_times: 5
+
+  # postman: 请求配置
+  postman:
+    meta_data:
+      # proxies: 代理配置，默认是 system，表示使用系统代理。
+      # 以下的写法都可以:
+      # proxies: null # 不使用代理
+      # proxies: clash
+      # proxies: v2ray
+      # proxies: 127.0.0.1:7890
+      # proxies:
+      #   http: 127.0.0.1:7890
+      #   https: 127.0.0.1:7890
+      proxies: system
+
+      # cookies: 帐号配置，默认是 null，表示未登录状态访问JM。
+      # 禁漫的大部分本子，下载是不需要登录的；少部分敏感题材需要登录才能看。
+      # 如果你希望以登录状态下载本子，最简单的方式是配置一下浏览器的cookies，
+      # 不用全部cookies，只要那个叫 AVS 就行。
+      # 特别注意！！！(https://github.com/hect0x7/JMComic-Crawler-Python/issues/104)
+      # cookies是区分域名的：
+      # 假如你要访问的是 `18comic.vip`，那么你配置的cookies也要来自于 `18comic.vip`，不能配置来自于 `jm-comic.club` 的cookies。
+      # 如果你发现配置了cookies还是没有效果，大概率就是你配置的cookies和代码访问的域名不一致。
+      cookies:
+        AVS: qkwehjjasdowqeq # 这个值是乱打的，不能用
+
+# 下载配置
+download:
+  cache: true # 如果要下载的文件在磁盘上已存在，不用再下一遍了吧？默认为true
+  image:
+    decode: true # JM的原图是混淆过的，要不要还原？默认为true
+    suffix: .jpg # 把图片都转为.jpg格式，默认为null，表示不转换。
+  threading:
+    # image: 同时下载的图片数，默认是30张图
+    # 数值大，下得快，配置要求高，对禁漫压力大
+    # 数值小，下得慢，配置要求低，对禁漫压力小
+    # PS: 禁漫网页一次最多请求50张图
+    image: 30
+    # photo: 同时下载的章节数，不配置默认是cpu的线程数。例如8核16线程的cpu → 16.
+    photo: 16
+
+
+
+# 文件夹规则配置，决定图片文件存放在你的电脑上的哪个文件夹
+dir_rule:
+  # base_dir: 根目录。
+  # 此配置也支持引用环境变量，例如
+  # base_dir: ${JM_DIR}/下载文件夹/
+  base_dir: ./data/jm
+
+  # rule: 规则dsl。
+  # 本项只建议了解编程的朋友定制，实现在这个类: jmcomic.jm_option.DirRule
+  # 写法:
+  # 1. 以'Bd'开头，表示根目录
+  # 2. 文件夹每增加一层，使用 '_' 或者 '/' 区隔
+  # 3. 用Pxxx或者Ayyy指代文件夹名，意思是 JmPhotoDetail.xxx / JmAlbumDetail的.yyy。xxx和yyy可以写什么需要看源码。
+  # 
+  # 下面演示如果要使用禁漫网站的默认下载方式，该怎么写:
+  # 规则: 根目录 / 本子id / 章节序号 / 图片文件
+  # rule: 'Bd  / Aid   / Pindex'
+  # rule: 'Bd_Aid_Pindex'
+
+  # 默认规则是: 根目录 / 章节标题 / 图片文件
+  rule: Bd_Ptitle
+
+# 插件的配置示例
+plugins:
+  after_photo:
+    # 把章节的所有图片合并为一个pdf的插件
+    # 使用前需要安装依赖库: [pip install img2pdf]
+    - plugin: img2pdf
+      kwargs:
+        pdf_dir: ./data/jm # pdf存放文件夹
+        filename_rule: Pid # pdf命名规则，P代表photo, id代表使用photo.id也就是章节id
+  
+  after_album:
+    # img2pdf也支持合并整个本子，把上方的after_photo改为after_album即可。
+    # https://github.com/hect0x7/JMComic-Crawler-Python/discussions/258
+    # 配置到after_album时，需要修改filename_rule参数，不能写Pxx只能写Axx示例如下
+    - plugin: img2pdf
+      kwargs:
+        pdf_dir: /data/jm # pdf存放文件夹
+        filename_rule: Aname # pdf命名规则，A代表album, name代表使用album.name也就是本子名称
