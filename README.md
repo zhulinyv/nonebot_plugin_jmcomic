@@ -70,6 +70,8 @@ jm + id
 
 例如: jm 114514
 
+![qq_pic_merged_1742800962464](https://github.com/user-attachments/assets/81a89e70-53be-4a76-94fd-0bd5225b4057)
+
 
 ## 📚 待办
 
