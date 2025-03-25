@@ -59,7 +59,13 @@
 
 ## ⚙️ 配置
 
-请移步[插件配置目录](https://github.com/nonebot/plugin-localstore)下 `option.yml` 文件并参考 [option_file_syntax](https://github.com/hect0x7/JMComic-Crawler-Python/blob/master/assets/docs/sources/option_file_syntax.md) 进行配置.
+在 nonebot2 项目的 env 文件中添加下表中的必填配置
+
+| 配置项 | 必填 | 类型 | 默认值 | 说明 |
+|:-----:|:----:|:----:|:----:|:----:|
+| jm_client | 否 | bool | True | 为 True 时, 将使用 file:/// 协议发送文件(客户端使用 NapCat/LLOB); 为 False 时使用绝对路径发送(客户端使用 Lagrange) |
+
+关于代理等配置请移步[插件配置目录](https://github.com/nonebot/plugin-localstore)下 `option.yml` 文件并参考 [option_file_syntax](https://github.com/hect0x7/JMComic-Crawler-Python/blob/master/assets/docs/sources/option_file_syntax.md) 进行配置.
 
 默认不需要更改.
 

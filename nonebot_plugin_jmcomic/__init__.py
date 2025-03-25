@@ -9,6 +9,7 @@ from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from nonebot.plugin.on import on_command
 
+from .config import jm_config
 from .utils import *  # noqa
 
 try:
@@ -40,8 +41,14 @@ async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
     await jm.send("正在下载中...", at_sender=True)
     await async_download_album(id)  # noqa
 
+    file = (
+        "file:///" + str(jm_data_dir / f"{id}.pdf")  # noqa
+        if jm_config.jm_client
+        else str(jm_data_dir / f"{id}.pdf")  # noqa
+    )
+
     await bot.upload_group_file(
         group_id=event.group_id,
-        file="file:///" + str(jm_data_dir / f"{id}.pdf"),  # noqa
+        file=file,
         name=f"{id}.pdf",
     )
