@@ -9,5 +9,4 @@ class Config(BaseModel):
     allowed_users: list[int] = Field(default_factory=lambda: list(get_driver().config.superusers))
     allowed_groups: list[int] = Field(default_factory=list)
 
-
 jm_config = get_plugin_config(Config)
