@@ -36,6 +36,14 @@ jm = on_command("jm", aliases={"JM"}, priority=30, block=True)
 
 @jm.handle()
 async def _(bot: Bot, event: GroupMessageEvent, msg: Message = CommandArg()):
+    # 权限验证
+    if jm_config.enable_auth:
+        user_id = event.user_id
+        group_id = event.group_id
+        if not (user_id in jm_config.allowed_users or group_id in jm_config.allowed_groups):
+            await jm.finish("您没有权限使用该功能", at_sender=True)
+            return
+            
     id = msg.extract_plain_text().strip()
 
     await jm.send("正在下载中...", at_sender=True)

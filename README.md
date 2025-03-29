@@ -64,6 +64,9 @@
 | 配置项 | 必填 | 类型 | 默认值 | 说明 |
 |:-----:|:----:|:----:|:----:|:----:|
 | jm_client | 否 | bool | True | 为 True 时, 将使用 file:/// 协议发送文件(客户端使用 NapCat/LLOB); 为 False 时使用绝对路径发送(客户端使用 Lagrange) |
+| enable_auth | 否 | bool | True | 为 True 时启用用户权限验证功能，只有允许的用户和群组才能使用本插件 |
+| allowed_users | 否 | list[int] | [] | 允许使用本插件的用户ID列表 |
+| allowed_groups | 否 | list[int] | [] | 允许使用本插件的群组ID列表 |
 
 关于代理等配置请移步[插件配置目录](https://github.com/nonebot/plugin-localstore)下 `option.yml` 文件并参考 [option_file_syntax](https://github.com/hect0x7/JMComic-Crawler-Python/blob/master/assets/docs/sources/option_file_syntax.md) 进行配置.
 
