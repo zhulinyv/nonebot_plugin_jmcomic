@@ -9,7 +9,7 @@ from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from nonebot.plugin.on import on_command
 
-from .config import jm_config
+from .config import Config, jm_config
 from .utils import *  # noqa
 
 try:
@@ -24,7 +24,7 @@ __plugin_meta__ = PluginMetadata(
     homepage="https://github.com/zhulinyv/nonebot_plugin_jmcomic",
     type="application",
     supported_adapters={"~onebot.v11"},
-    config=None,
+    config=Config,
     extra={
         "author": "zhulinyv",
         "version": __version__,

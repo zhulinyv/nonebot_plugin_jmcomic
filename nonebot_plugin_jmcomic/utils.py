@@ -17,13 +17,7 @@ jm_data_dir_str = str(jm_data_dir)
 
 async def async_download_album(id):
     option = jmcomic.create_option_by_file(str(jm_config_file))
-    loop = asyncio.get_event_loop()
-    await loop.run_in_executor(
-        None,
-        jmcomic.download_album,
-        id,
-        option,
-    )
+    await asyncio.to_thread(jmcomic.download_album, id, option)
 
 
 if not os.path.exists(jm_config_file):
